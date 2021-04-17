@@ -7,8 +7,8 @@ public class ChartData implements Serializable{
     private String x;
     private double y;
     
-    public ChartData(String x, double y) {
-        this.x = x;
+    public ChartData(double d, double y) {
+        this.x = d;
         this.y = y;
     }
     public String getX() {
