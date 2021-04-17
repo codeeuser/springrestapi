@@ -2,6 +2,8 @@
 
 http://localhost:8080/api/welcome/home
 
+http://localhost:8080/api/welcome/chartData
+
 # Result
 Random Double value
-{"Jan":16.35,"Feb":21.93,"Mar":35.37}
+{"Jan":48.1,"Feb":25.15,"Mar":34.31,"Apr":48.89,"May":56.27,"Jun":67.84}
