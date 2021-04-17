@@ -25,9 +25,12 @@ public class WelcomeController {
     @ResponseBody
     public String home(){
         Map<String, Double> map = new LinkedHashMap<String, Double>();
-        map.put("Jan", randomNum(10.0, 20.0));
+        map.put("Jan", randomNum(40.0, 60.0));
         map.put("Feb", randomNum(20.0, 30.0));
         map.put("Mar", randomNum(30.0, 40.0));
+        map.put("Apr", randomNum(40.0, 50.0));
+        map.put("May", randomNum(50.0, 60.0));
+        map.put("Jun", randomNum(60.0, 70.0));
         Gson gson = new Gson();
         String sJson = gson.toJson(map);
         return sJson;
