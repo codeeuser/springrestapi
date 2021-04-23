@@ -1,12 +1,19 @@
 package com.wheref.springrestapi.controller;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import com.wheref.springrestapi.model.Coordinates;
+import com.wheref.springrestapi.models.Geometry;
+
+import org.apache.commons.lang3.RandomUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/welcome")
 public class WelcomeController {
+
+    private Coordinates co;
     
     @GetMapping("/home")
     @ResponseBody
@@ -45,6 +54,31 @@ public class WelcomeController {
         map.put("Dec", randomNum(10.0, 200.0));
 		return map;
 	}
+
+    @GetMapping("/coordinate")
+	public Geometry coordinate() {
+        // float random = RandomUtils.nextFloat(0, 0.01f);
+        float lat = 4.5841f;
+        float lng = 101.0829f;
+        // lat = lat + random;
+        // System.out.println("random: "+random+", lat: "+lat);
+         List<Float> coordinates = new ArrayList<>();// [4.5841 101.0829];
+        //  coordinates.add(lat);
+        //  coordinates.add(lng);
+        if (this.co!=null){
+            coordinates.add(this.co.getLat());
+            coordinates.add(this.co.getLng());
+        }
+        Geometry geometry = new Geometry("Point", coordinates);
+		return geometry;
+	}
+
+    @PostMapping(path="/postCoordinate", consumes = "application/json", produces = "application/json")
+	public Coordinates postcoordinate(@RequestBody Coordinates coordinates) {
+        System.out.println("coordinates: "+ coordinates.getLat()+", "+ coordinates.getLng());
+        this.co = coordinates;
+        return coordinates;
+    }
 
     private double randomNum(double rangeMin, double rangeMax){
         Random r = new Random();
