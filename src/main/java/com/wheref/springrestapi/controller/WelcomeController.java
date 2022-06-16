@@ -55,6 +55,31 @@ public class WelcomeController {
 		return map;
 	}
 
+    @GetMapping("/chartDataLevel2")
+	public Map<String, Map<String, Double> > chartDataLevel2() {
+        Map<String, Map<String, Double> > root = new LinkedHashMap<String, Map<String, Double> >();
+        
+        Map<String, Double> map = new LinkedHashMap<String, Double>();
+        map.put("Jan", randomNum(10.0, 200.0));
+        map.put("Feb", randomNum(10.0, 200.0));
+        map.put("Mar", randomNum(10.0, 200.0));
+        map.put("Apr", randomNum(-100.0, 200.0));
+        map.put("May", randomNum(10.0, 200.0));
+        map.put("Jun", randomNum(10.0, 200.0));
+
+        Map<String, Double> map2 = new LinkedHashMap<String, Double>();
+        map2.put("Jul", randomNum(10.0, 200.0));
+        map2.put("Aug", randomNum(10.0, 200.0));
+        map2.put("Sep", randomNum(10.0, 200.0));
+        map2.put("Oct", randomNum(-100.0, 200.0));
+        map2.put("Nov", randomNum(10.0, 200.0));
+        map2.put("Dec", randomNum(10.0, 200.0));
+
+        root.put("first", map);
+        root.put("second", map2);
+		return root;
+	}
+
     @GetMapping("/coordinate")
 	public Geometry coordinate() {
         // float random = RandomUtils.nextFloat(0, 0.01f);
