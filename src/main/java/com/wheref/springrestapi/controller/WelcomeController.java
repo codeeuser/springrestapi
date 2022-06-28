@@ -1,18 +1,23 @@
 package com.wheref.springrestapi.controller;
 
 import java.io.File;
-import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.lang.management.ThreadMXBean;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import com.wheref.springrestapi.model.Coordinates;
-import com.wheref.springrestapi.models.Geometry;
+import javax.management.AttributeNotFoundException;
+import javax.management.InstanceNotFoundException;
+import javax.management.MBeanException;
+import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+import javax.management.ReflectionException;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +28,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wheref.springrestapi.model.Coordinates;
+import com.wheref.springrestapi.models.Geometry;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/welcome")
@@ -30,6 +38,9 @@ public class WelcomeController {
 
     @Value("classpath:complex-sample.json")
     Resource sampleJson;
+
+    private Long gbUnit = 1073741824L;
+    private Long mbUnit = 1048576L;
 
     private Coordinates co;
     
@@ -108,6 +119,57 @@ public class WelcomeController {
         root.put("two", map2);
 		return root;
 	}
+
+    @GetMapping("/computer")
+	public Map<String, Object> computer() throws InstanceNotFoundException, AttributeNotFoundException, MalformedObjectNameException, ReflectionException, MBeanException {
+        Map<String, Object> root = new LinkedHashMap<String, Object>();
+        ThreadMXBean tb = ManagementFactory.getThreadMXBean();
+        
+        Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+        map.put("Thread Count", tb.getThreadCount());
+        map.put("Peak Thread Count", tb.getPeakThreadCount());
+        root.put("Thread", map);
+
+        Map<String, Double> mapMemoryHeap = new LinkedHashMap<String, Double>();
+        MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
+        double heapMemoryUsage = (double)memoryMXBean.getHeapMemoryUsage().getInit() / gbUnit;
+        double heapMemoryUsed = (double)memoryMXBean.getHeapMemoryUsage().getUsed() / gbUnit;
+        double heapMemoryMax = (double)memoryMXBean.getHeapMemoryUsage().getMax() / gbUnit;
+        double heapMemoryCommited = (double)memoryMXBean.getHeapMemoryUsage().getCommitted() / gbUnit;
+        mapMemoryHeap.put("Usage", heapMemoryUsage);
+        mapMemoryHeap.put("Used", heapMemoryUsed);
+        mapMemoryHeap.put("max", heapMemoryMax);
+        mapMemoryHeap.put("Comitted", heapMemoryCommited);
+        root.put("Heap Memory", mapMemoryHeap);
+
+        Map<String, Long> mapPhysicalMemory = new LinkedHashMap<String, Long>();
+        MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+        Object attribute = mBeanServer.getAttribute(new ObjectName("java.lang","type","OperatingSystem"), "TotalPhysicalMemorySize");
+        Object attribute2 = mBeanServer.getAttribute(new ObjectName("java.lang","type","OperatingSystem"), "FreePhysicalMemorySize");
+        Long totalPhysicalMemorySize = Long.parseLong(attribute.toString()) / gbUnit;
+        Long freePhysicalMemorySize = Long.parseLong(attribute2.toString()) / gbUnit; 
+        mapPhysicalMemory.put("total", totalPhysicalMemorySize);
+        mapPhysicalMemory.put("free", freePhysicalMemorySize);
+        root.put("Physical Memory", mapPhysicalMemory);
+
+        File fileRoot = new File("/");
+        Long totalSpac = fileRoot.getTotalSpace();
+        Long freeSpace = fileRoot.getFreeSpace();
+        Long usableSpace = fileRoot.getUsableSpace();
+        Map<String, Long> mapSpace = new LinkedHashMap<String, Long>();
+        mapSpace.put("TotalSpac", totalSpac);
+        mapSpace.put("FreeSpace", freeSpace);
+        mapSpace.put("UsableSpace", usableSpace);
+        root.put("SpaceRaw", mapSpace);
+
+        Map<String, Double> mapSpaceG = new LinkedHashMap<String, Double>();
+        mapSpaceG.put("TotalSpac", Math.ceil((double) (totalSpac/gbUnit)));
+        mapSpaceG.put("FreeSpace", Math.ceil((double) freeSpace/gbUnit));
+        mapSpaceG.put("UsableSpace", Math.ceil((double) usableSpace/gbUnit));
+        root.put("SpaceG", mapSpaceG);
+
+        return root;
+    }
 
     @GetMapping("/coordinate")
 	public Geometry coordinate() {

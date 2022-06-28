@@ -8,6 +8,8 @@ http://localhost:8080/api/welcome/chartDataLevel2
 
 http://localhost:8080/api/welcome/chartDataLevel3
 
+http://localhost:8080/api/welcome/computer
+
 # Result
 Random Double value
 {"Jan":48.1,"Feb":25.15,"Mar":34.31,"Apr":48.89,"May":56.27,"Jun":67.84}
