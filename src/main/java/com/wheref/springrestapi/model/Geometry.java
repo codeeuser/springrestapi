@@ -1,4 +1,4 @@
-package com.wheref.springrestapi.models;
+package com.wheref.springrestapi.model;
 
 import java.util.List;
 

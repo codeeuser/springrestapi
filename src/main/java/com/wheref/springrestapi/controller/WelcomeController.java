@@ -24,12 +24,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wheref.springrestapi.model.Coordinates;
-import com.wheref.springrestapi.models.Geometry;
+import com.wheref.springrestapi.model.Geometry;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -40,7 +41,6 @@ public class WelcomeController {
     Resource sampleJson;
 
     private Long gbUnit = 1073741824L;
-    private Long mbUnit = 1048576L;
 
     private Coordinates co;
     
@@ -51,7 +51,10 @@ public class WelcomeController {
     }
 
     @GetMapping("/chartData")
-	public Map<String, Double> chartData() {
+	public Map<String, Double> chartData(@RequestHeader Map<String, String> headers) {
+        headers.forEach((key, value) -> {
+            System.out.println(String.format("GET: Header '%s' = %s", key, value));
+        });
         Map<String, Double> map = new LinkedHashMap<String, Double>();
         map.put("Jan", randomNum(10.0, 200.0));
         map.put("Feb", randomNum(10.0, 200.0));
@@ -63,7 +66,12 @@ public class WelcomeController {
 	}
 
     @PostMapping("/postChartData")
-	public Map<String, Double> postChartData() {
+	public Map<String, Double> postChartData(@RequestBody String body, @RequestHeader Map<String, String> headers) {
+        System.out.println("L3: body: "+body);
+        headers.forEach((key, value) -> {
+            System.out.println(String.format("POST: Header '%s' = %s", key, value));
+        });
+
         Map<String, Double> map = new LinkedHashMap<String, Double>();
         map.put("Jul", randomNum(10.0, 200.0));
         map.put("Aug", randomNum(10.0, 200.0));
@@ -173,14 +181,7 @@ public class WelcomeController {
 
     @GetMapping("/coordinate")
 	public Geometry coordinate() {
-        // float random = RandomUtils.nextFloat(0, 0.01f);
-        float lat = 4.5841f;
-        float lng = 101.0829f;
-        // lat = lat + random;
-        // System.out.println("random: "+random+", lat: "+lat);
-         List<Float> coordinates = new ArrayList<>();// [4.5841 101.0829];
-        //  coordinates.add(lat);
-        //  coordinates.add(lng);
+        List<Float> coordinates = new ArrayList<>();
         if (this.co!=null){
             coordinates.add(this.co.getLat());
             coordinates.add(this.co.getLng());
