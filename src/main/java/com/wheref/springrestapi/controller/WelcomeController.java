@@ -119,8 +119,9 @@ public class WelcomeController {
         map2.put("Store", randomNum(10.0, 200.0));
         map2.put("Stall", randomNum(10.0, 200.0));
 
-        Map<String, Double> map3 = new LinkedHashMap<String, Double>();
+        Map<String, Object> map3 = new LinkedHashMap<String, Object>();
         map3.put("Orange", randomNum(10.0, 200.0));
+        map3.put("Web Site", "https://wheref.com");
 
         map2.put("fruit", map3);
         root.put("one", map);
