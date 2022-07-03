@@ -65,6 +65,34 @@ public class WelcomeController {
 		return map;
 	}
 
+    @GetMapping("/chartDataList")
+	public Map<String, Object> chartData() {
+        Map<String, Object> root = new LinkedHashMap<String, Object>();
+        List<Map<String, Double>> list = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            Map<String, Double> map = new LinkedHashMap<String, Double>();
+            map.put("Jan", randomNum(10.0, 200.0));
+            map.put("Feb", randomNum(10.0, 200.0));
+            map.put("Mar", randomNum(10.0, 200.0));
+            map.put("Apr", randomNum(-100.0, 200.0));
+            map.put("May", randomNum(10.0, 200.0));
+            map.put("Jun", randomNum(10.0, 200.0));
+
+            list.add(map);
+        }
+
+        Map<String, Double> map2 = new LinkedHashMap<String, Double>();
+        map2.put("Jul", randomNum(10.0, 200.0));
+        map2.put("Aug", randomNum(10.0, 200.0));
+        map2.put("Sep", randomNum(10.0, 200.0));
+        map2.put("Oct", randomNum(-100.0, 200.0));
+        map2.put("Nov", randomNum(10.0, 200.0));
+        map2.put("Dec", randomNum(10.0, 200.0));
+        root.put("month", map2);
+        root.put("list", list);
+		return root;
+	}
+
     @PostMapping("/postChartData")
 	public Map<String, Double> postChartData(@RequestBody String body, @RequestHeader Map<String, String> headers) {
         System.out.println("L3: body: "+body);
