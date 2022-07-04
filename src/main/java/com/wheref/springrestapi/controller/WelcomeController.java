@@ -56,12 +56,12 @@ public class WelcomeController {
             System.out.println(String.format("GET: Header '%s' = %s", key, value));
         });
         Map<String, Double> map = new LinkedHashMap<String, Double>();
-        map.put("Jan", randomNum(10.0, 200.0));
-        map.put("Feb", randomNum(10.0, 200.0));
-        map.put("Mar", randomNum(10.0, 200.0));
-        map.put("Apr", randomNum(-100.0, 200.0));
-        map.put("May", randomNum(10.0, 200.0));
-        map.put("Jun", randomNum(10.0, 200.0));
+        map.put("Jan", randomNum(10.0, 90.0));
+        map.put("Feb", randomNum(10.0, 90.0));
+        map.put("Mar", randomNum(10.0, 90.0));
+        map.put("Apr", randomNum(-90.0, 90.0));
+        map.put("May", randomNum(10.0, 90.0));
+        map.put("Jun", randomNum(10.0, 90.0));
 		return map;
 	}
 
@@ -71,23 +71,23 @@ public class WelcomeController {
         List<Map<String, Double>> list = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             Map<String, Double> map = new LinkedHashMap<String, Double>();
-            map.put("Jan", randomNum(10.0, 200.0));
-            map.put("Feb", randomNum(10.0, 200.0));
-            map.put("Mar", randomNum(10.0, 200.0));
-            map.put("Apr", randomNum(-100.0, 200.0));
-            map.put("May", randomNum(10.0, 200.0));
-            map.put("Jun", randomNum(10.0, 200.0));
+            map.put("Jan", randomNum(10.0, 90.0));
+            map.put("Feb", randomNum(10.0, 90.0));
+            map.put("Mar", randomNum(10.0, 90.0));
+            map.put("Apr", randomNum(-90.0, 90.0));
+            map.put("May", randomNum(10.0, 90.0));
+            map.put("Jun", randomNum(10.0, 90.0));
 
             list.add(map);
         }
 
         Map<String, Double> map2 = new LinkedHashMap<String, Double>();
-        map2.put("Jul", randomNum(10.0, 200.0));
-        map2.put("Aug", randomNum(10.0, 200.0));
-        map2.put("Sep", randomNum(10.0, 200.0));
-        map2.put("Oct", randomNum(-100.0, 200.0));
-        map2.put("Nov", randomNum(10.0, 200.0));
-        map2.put("Dec", randomNum(10.0, 200.0));
+        map2.put("Jul", randomNum(10.0, 90.0));
+        map2.put("Aug", randomNum(10.0, 90.0));
+        map2.put("Sep", randomNum(10.0, 90.0));
+        map2.put("Oct", randomNum(-90.0, 90.0));
+        map2.put("Nov", randomNum(10.0, 90.0));
+        map2.put("Dec", randomNum(10.0, 90.0));
         root.put("month", map2);
         root.put("list", list);
 		return root;
@@ -101,12 +101,12 @@ public class WelcomeController {
         });
 
         Map<String, Double> map = new LinkedHashMap<String, Double>();
-        map.put("Jul", randomNum(10.0, 200.0));
-        map.put("Aug", randomNum(10.0, 200.0));
-        map.put("Sep", randomNum(10.0, 200.0));
-        map.put("Oct", randomNum(-100.0, 200.0));
-        map.put("Nov", randomNum(10.0, 200.0));
-        map.put("Dec", randomNum(10.0, 200.0));
+        map.put("Jul", randomNum(10.0, 90.0));
+        map.put("Aug", randomNum(10.0, 90.0));
+        map.put("Sep", randomNum(10.0, 90.0));
+        map.put("Oct", randomNum(-90.0, 90.0));
+        map.put("Nov", randomNum(10.0, 90.0));
+        map.put("Dec", randomNum(10.0, 90.0));
 		return map;
 	}
 
@@ -115,20 +115,20 @@ public class WelcomeController {
         Map<String, Map<String, Double> > root = new LinkedHashMap<String, Map<String, Double> >();
         
         Map<String, Double> map = new LinkedHashMap<String, Double>();
-        map.put("Jan", randomNum(10.0, 200.0));
-        map.put("Feb", randomNum(10.0, 200.0));
-        map.put("Mar", randomNum(10.0, 200.0));
-        map.put("Apr", randomNum(-100.0, 200.0));
-        map.put("May", randomNum(10.0, 200.0));
-        map.put("Jun", randomNum(10.0, 200.0));
+        map.put("Jan", randomNum(10.0, 90.0));
+        map.put("Feb", randomNum(10.0, 90.0));
+        map.put("Mar", randomNum(10.0, 90.0));
+        map.put("Apr", randomNum(-90.0, 90.0));
+        map.put("May", randomNum(10.0, 90.0));
+        map.put("Jun", randomNum(10.0, 90.0));
 
         Map<String, Double> map2 = new LinkedHashMap<String, Double>();
-        map2.put("Jul", randomNum(10.0, 200.0));
-        map2.put("Aug", randomNum(10.0, 200.0));
-        map2.put("Sep", randomNum(10.0, 200.0));
-        map2.put("Oct", randomNum(-100.0, 200.0));
-        map2.put("Nov", randomNum(10.0, 200.0));
-        map2.put("Dec", randomNum(10.0, 200.0));
+        map2.put("Jul", randomNum(10.0, 90.0));
+        map2.put("Aug", randomNum(10.0, 90.0));
+        map2.put("Sep", randomNum(10.0, 90.0));
+        map2.put("Oct", randomNum(-90.0, 90.0));
+        map2.put("Nov", randomNum(10.0, 90.0));
+        map2.put("Dec", randomNum(10.0, 90.0));
 
         root.put("first", map);
         root.put("second", map2);
@@ -140,15 +140,15 @@ public class WelcomeController {
         Map<String, Object> root = new LinkedHashMap<String, Object>();
         
         Map<String, Double> map = new LinkedHashMap<String, Double>();
-        map.put("School", randomNum(10.0, 200.0));
-        map.put("Polis", randomNum(10.0, 200.0));
+        map.put("School", randomNum(10.0, 90.0));
+        map.put("Polis", randomNum(10.0, 90.0));
 
         Map<String, Object> map2 = new LinkedHashMap<String, Object>();
-        map2.put("Store", randomNum(10.0, 200.0));
-        map2.put("Stall", randomNum(10.0, 200.0));
+        map2.put("Store", randomNum(10.0, 90.0));
+        map2.put("Stall", randomNum(10.0, 90.0));
 
         Map<String, Object> map3 = new LinkedHashMap<String, Object>();
-        map3.put("Orange", randomNum(10.0, 200.0));
+        map3.put("Orange", randomNum(10.0, 90.0));
         map3.put("Web Site", "https://wheref.com");
 
         map2.put("fruit", map3);
