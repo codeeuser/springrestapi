@@ -56,7 +56,7 @@ public class WelcomeController {
             System.out.println(String.format("GET: Header '%s' = %s", key, value));
         });
         Map<String, Double> map = new LinkedHashMap<String, Double>();
-        map.put("Jan", randomNum(10.0, 90.0));
+        map.put("Jan", randomNum(300.0, 900000.0));
         map.put("Feb", randomNum(10.0, 90.0));
         map.put("Mar", randomNum(10.0, 90.0));
         map.put("Apr", randomNum(-90.0, 90.0));
