@@ -3,6 +3,7 @@ package com.wheref.springrestapi.controller;
 import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
+import java.lang.management.OperatingSystemMXBean;
 import java.lang.management.ThreadMXBean;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -141,7 +142,7 @@ public class WelcomeController {
         
         Map<String, Double> map = new LinkedHashMap<String, Double>();
         map.put("School", randomNum(10.0, 90.0));
-        map.put("Polis", randomNum(10.0, 90.0));
+        map.put("Police", randomNum(10.0, 90.0));
 
         Map<String, Object> map2 = new LinkedHashMap<String, Object>();
         map2.put("Store", randomNum(10.0, 90.0));
@@ -160,8 +161,23 @@ public class WelcomeController {
     @GetMapping("/computer")
 	public Map<String, Object> computer() throws InstanceNotFoundException, AttributeNotFoundException, MalformedObjectNameException, ReflectionException, MBeanException {
         Map<String, Object> root = new LinkedHashMap<String, Object>();
-        ThreadMXBean tb = ManagementFactory.getThreadMXBean();
-        
+
+        // http://docs.oracle.com/javase/6/docs/api/java/lang/management/OperatingSystemMXBean.html
+        OperatingSystemMXBean myOsBean = ManagementFactory.getOperatingSystemMXBean();
+        double load = myOsBean.getSystemLoadAverage();
+        int numCpu = myOsBean.getAvailableProcessors();
+        String arch = myOsBean.getArch();
+        String nameCpu = myOsBean.getName();
+        String versionCpu = myOsBean.getVersion();
+        Map<String, Object> mapCpu = new LinkedHashMap<String, Object>();
+        mapCpu.put("CPU Usage", load);
+        mapCpu.put("Number", numCpu);
+        mapCpu.put("Architecture", arch);
+        mapCpu.put("OS name", nameCpu);
+        mapCpu.put("OS Version", versionCpu);
+        root.put("CPU", mapCpu);
+
+        ThreadMXBean tb = ManagementFactory.getThreadMXBean();        
         Map<String, Integer> map = new LinkedHashMap<String, Integer>();
         map.put("Thread Count", tb.getThreadCount());
         map.put("Peak Thread Count", tb.getPeakThreadCount());
@@ -200,7 +216,7 @@ public class WelcomeController {
         root.put("SpaceRaw", mapSpace);
 
         Map<String, Double> mapSpaceG = new LinkedHashMap<String, Double>();
-        mapSpaceG.put("TotalSpac", Math.ceil((double) (totalSpac/gbUnit)));
+        mapSpaceG.put("TotalSpace", Math.ceil((double) (totalSpac/gbUnit)));
         mapSpaceG.put("FreeSpace", Math.ceil((double) freeSpace/gbUnit));
         mapSpaceG.put("UsableSpace", Math.ceil((double) usableSpace/gbUnit));
         root.put("SpaceG", mapSpaceG);
