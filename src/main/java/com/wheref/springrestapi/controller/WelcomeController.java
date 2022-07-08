@@ -1,10 +1,13 @@
 package com.wheref.springrestapi.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.OperatingSystemMXBean;
 import java.lang.management.ThreadMXBean;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,6 +22,9 @@ import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import javax.management.ReflectionException;
 
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.CharSetUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,6 +33,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -222,6 +229,17 @@ public class WelcomeController {
         root.put("SpaceG", mapSpaceG);
 
         return root;
+    }
+
+    @RequestMapping(
+        value = "/resource-json",
+        method = RequestMethod.GET, 
+        produces = "application/json"
+    )
+	public String resourceJson() throws IOException {
+        File file = sampleJson.getFile();
+        String str = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
+        return str;
     }
 
     @GetMapping("/coordinate")
