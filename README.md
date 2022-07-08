@@ -17,10 +17,10 @@ http://localhost:8080/api/welcome/chartDataList
 http://localhost:8080/api/welcome/resource-json
 
 # Result
-Random Double value
-{"Jan":48.1,"Feb":25.15,"Mar":34.31,"Apr":48.89,"May":56.27,"Jun":67.84}
+* Random Double value
+* {"Jan":48.1,"Feb":25.15,"Mar":34.31,"Apr":48.89,"May":56.27,"Jun":67.84}
 
 
 
-http://localhost:8080/api/welcome/coordinate
-{"type":"Point","coordinates":[4.5841,101.0829]}
+* http://localhost:8080/api/welcome/coordinate
+* {"type":"Point","coordinates":[4.5841,101.0829]}
