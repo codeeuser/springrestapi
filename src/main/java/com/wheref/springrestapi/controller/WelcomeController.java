@@ -6,7 +6,6 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.OperatingSystemMXBean;
 import java.lang.management.ThreadMXBean;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -22,9 +21,7 @@ import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import javax.management.ReflectionException;
 
-import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.CharSetUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -96,6 +93,7 @@ public class WelcomeController {
         map2.put("Oct", randomNum(-90.0, 90.0));
         map2.put("Nov", randomNum(10.0, 90.0));
         map2.put("Dec", randomNum(10.0, 90.0));
+        
         root.put("month", map2);
         root.put("list", list);
 		return root;
