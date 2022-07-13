@@ -7,7 +7,11 @@ import java.lang.management.MemoryMXBean;
 import java.lang.management.OperatingSystemMXBean;
 import java.lang.management.ThreadMXBean;
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -162,6 +166,32 @@ public class WelcomeController {
         root.put("two", map2);
 		return root;
 	}
+
+    @GetMapping("/stock")
+	public Map<String, Object> stock() throws ParseException{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Map<String, Object> root = new LinkedHashMap<String, Object>();
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            Calendar c = Calendar.getInstance();
+            String dt = "2022-07-0"+i;
+            c.setTime(sdf.parse(dt));
+            c.add(Calendar.DATE, 1);  // number of days to add
+            dt = sdf.format(c.getTime()); 
+            Map<String, Object> map = new LinkedHashMap<String, Object>();
+            map.put("symbol", "AAPL");
+            map.put("exchange", "XNAS");
+            map.put("open", randomNum(10.0, 90.0));
+            map.put("high", randomNum(-90.0, 90.0));
+            map.put("low", randomNum(10.0, 90.0));
+            map.put("close", randomNum(10.0, 90.0));
+            map.put("date", dt);
+
+            list.add(map);
+        }
+        root.put("data", list);
+        return root;
+    }
 
     @GetMapping("/computer")
 	public Map<String, Object> computer() throws InstanceNotFoundException, AttributeNotFoundException, MalformedObjectNameException, ReflectionException, MBeanException {
