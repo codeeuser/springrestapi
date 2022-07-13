@@ -193,6 +193,19 @@ public class WelcomeController {
         return root;
     }
 
+    @GetMapping("/list")
+    public Map<String, Object> dataList() {
+        Map<String, Object> root = new LinkedHashMap<String, Object>();
+        List<Object> list = new ArrayList<Object>();
+        for (int i = 0; i < 7; i++) {
+            list.add(randomNum(10.0, 90.0));
+        }
+
+        root.put("data", list);
+        return root;
+    }
+
+
     @GetMapping("/computer")
 	public Map<String, Object> computer() throws InstanceNotFoundException, AttributeNotFoundException, MalformedObjectNameException, ReflectionException, MBeanException {
         Map<String, Object> root = new LinkedHashMap<String, Object>();
