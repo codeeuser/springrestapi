@@ -2,6 +2,7 @@ package com.wheref.springrestapi.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.OperatingSystemMXBean;
@@ -11,11 +12,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.management.AttributeNotFoundException;
 import javax.management.InstanceNotFoundException;
@@ -26,8 +27,10 @@ import javax.management.ObjectName;
 import javax.management.ReflectionException;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +52,12 @@ public class WelcomeController {
     @Value("classpath:complex-sample.json")
     Resource sampleJson;
 
+    @Value("classpath:images/avatar.jpeg")
+    Resource avatar;
+
+    @Value("classpath:images/avatar-movie.jpeg")
+    Resource avatarMovie;
+
     private Long gbUnit = 1073741824L;
 
     private Coordinates co;
@@ -58,6 +67,17 @@ public class WelcomeController {
     public String home(){
         return "home";
     }
+
+    @GetMapping(value = "/photo", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody byte[] photo() throws IOException {
+        System.out.println("--- LOADING PHOTO ---");
+        InputStream[] list = {
+            avatar.getInputStream(),
+            avatarMovie.getInputStream()
+        };
+        int randomNum = ThreadLocalRandom.current().nextInt(0, 2);
+        return IOUtils.toByteArray(list[randomNum]);
+    } 
 
     @GetMapping("/chartData")
 	public Map<String, Double> chartData(@RequestHeader Map<String, String> headers) {
