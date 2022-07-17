@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -321,10 +322,13 @@ public class WelcomeController {
 
     @GetMapping("/coordinate")
 	public Geometry coordinate() {
-        List<Float> coordinates = new ArrayList<>();
+        Map<String, Float> coordinates = new HashMap<>();
         if (this.co!=null){
-            coordinates.add(this.co.getLat());
-            coordinates.add(this.co.getLng());
+            coordinates.put("lat", this.co.getLat());
+            coordinates.put("lng", this.co.getLng());
+        } else {
+            coordinates.put("lat", 3.1390f);
+            coordinates.put("lng", 101.6869f);
         }
         Geometry geometry = new Geometry("Point", coordinates);
 		return geometry;

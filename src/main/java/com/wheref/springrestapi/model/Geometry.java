@@ -1,12 +1,12 @@
 package com.wheref.springrestapi.model;
 
-import java.util.List;
+import java.util.Map;
 
 public class Geometry {
     String type;
-    List<Float> coordinates;
+    Map<String, Float> coordinates;
     
-    public Geometry(String type, List<Float> coordinates) {
+    public Geometry(String type, Map<String, Float> coordinates) {
         this.type = type;
         this.coordinates = coordinates;
     }
@@ -16,10 +16,10 @@ public class Geometry {
     public void setType(String type) {
         this.type = type;
     }
-    public List<Float> getCoordinates() {
+    public Map<String, Float> getCoordinates() {
         return coordinates;
     }
-    public void setCoordinates(List<Float> coordinates) {
+    public void setCoordinates(Map<String, Float> coordinates) {
         this.coordinates = coordinates;
     }
 
