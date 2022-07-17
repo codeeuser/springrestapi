@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 import javax.management.AttributeNotFoundException;
 import javax.management.InstanceNotFoundException;
@@ -49,7 +50,7 @@ import com.wheref.springrestapi.model.Geometry;
 @RequestMapping("/api/welcome")
 public class WelcomeController {
 
-    @Value("classpath:complex-sample.json")
+    @Value("classpath:files/googleapiscom-analyticsreporting.json")
     Resource sampleJson;
 
     @Value("classpath:images/avatar.jpeg")
@@ -57,6 +58,9 @@ public class WelcomeController {
 
     @Value("classpath:images/avatar-movie.jpeg")
     Resource avatarMovie;
+
+    @Value("classpath:files/nasdaq.csv")
+    Resource nasdaq;
 
     private Long gbUnit = 1073741824L;
 
@@ -299,6 +303,18 @@ public class WelcomeController {
     )
 	public String resourceJson() throws IOException {
         File file = sampleJson.getFile();
+        String str = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
+        return str;
+    }
+
+    @RequestMapping(
+        value = "/nasdaq",
+        method = RequestMethod.GET, 
+        produces = "application/csv"
+    )
+	public String nasdaq() throws IOException, InterruptedException {
+        TimeUnit.SECONDS.sleep(5);
+        File file = nasdaq.getFile();
         String str = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
         return str;
     }
