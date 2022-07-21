@@ -193,11 +193,12 @@ public class WelcomeController {
 	}
 
     @GetMapping("/stock")
-	public Map<String, Object> stock() throws ParseException{
+	public Map<String, Object> stock() throws ParseException, InterruptedException{
+        TimeUnit.SECONDS.sleep(2);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Map<String, Object> root = new LinkedHashMap<String, Object>();
         List<Map<String, Object>> list = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 4; i++) {
             Calendar c = Calendar.getInstance();
             String dt = "2022-07-0"+i;
             c.setTime(sdf.parse(dt));
@@ -323,6 +324,7 @@ public class WelcomeController {
     @GetMapping("/coordinate")
 	public Geometry coordinate() {
         Map<String, Float> coordinates = new HashMap<>();
+        System.out.println("co: "+ co);
         if (this.co!=null){
             coordinates.put("lat", this.co.getLat());
             coordinates.put("lng", this.co.getLng());
