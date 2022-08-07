@@ -185,6 +185,8 @@ public class WelcomeController {
         Map<String, Object> map3 = new LinkedHashMap<String, Object>();
         map3.put("Orange", randomNum(10.0, 90.0));
         map3.put("Web Site", "https://wheref.com");
+        map3.put("Microsoft Store", "https://apps.microsoft.com/store/detail/kpi-mboard/9NKW3Q13X88K");
+        map3.put("AppStore", "https://apps.apple.com/us/app/mboard/id1632169331");
 
         map2.put("fruit", map3);
         root.put("one", map);
@@ -194,7 +196,7 @@ public class WelcomeController {
 
     @GetMapping("/stock")
 	public Map<String, Object> stock() throws ParseException, InterruptedException{
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(1);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Map<String, Object> root = new LinkedHashMap<String, Object>();
         List<Map<String, Object>> list = new ArrayList<>();
@@ -208,7 +210,7 @@ public class WelcomeController {
             map.put("symbol", "AAPL");
             map.put("exchange", "XNAS");
             map.put("open", randomNum(10.0, 90.0));
-            map.put("high", randomNum(-90.0, 90.0));
+            map.put("high", randomNum(30.0, 90.0));
             map.put("low", randomNum(10.0, 90.0));
             map.put("close", randomNum(10.0, 90.0));
             map.put("date", dt);
@@ -315,7 +317,7 @@ public class WelcomeController {
         produces = "application/csv"
     )
 	public String nasdaq() throws IOException, InterruptedException {
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(1);
         File file = nasdaq.getFile();
         String str = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
         return str;

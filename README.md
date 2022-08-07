@@ -26,6 +26,10 @@ http://localhost:8080/api/welcome/nasdaq
 
 http://localhost:8080/api/welcome/coordinate
 
+
+# Command Controller - TOP CLI
+http://localhost:8080/api/command/top
+
 # Result
 * Random Double value
 * {"Jan":48.1,"Feb":25.15,"Mar":34.31,"Apr":48.89,"May":56.27,"Jun":67.84}
