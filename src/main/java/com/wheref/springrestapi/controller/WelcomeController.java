@@ -93,7 +93,7 @@ public class WelcomeController {
         map.put("Jan", randomNum(300.0, 900000.0));
         map.put("Feb", randomNum(10.0, 90.0));
         map.put("Mar", randomNum(10.0, 90.0));
-        map.put("Apr", randomNum(-90.0, 90.0));
+        map.put("Apr", randomNum(0.0, 90.0));
         map.put("May", randomNum(10.0, 90.0));
         map.put("Jun", randomNum(10.0, 90.0));
 		return map;
@@ -108,7 +108,7 @@ public class WelcomeController {
             map.put("Jan", randomNum(10.0, 90.0));
             map.put("Feb", randomNum(10.0, 90.0));
             map.put("Mar", randomNum(10.0, 90.0));
-            map.put("Apr", randomNum(-90.0, 90.0));
+            map.put("Apr", randomNum(0.0, 90.0));
             map.put("May", randomNum(10.0, 90.0));
             map.put("Jun", randomNum(10.0, 90.0));
 
@@ -119,7 +119,7 @@ public class WelcomeController {
         map2.put("Jul", randomNum(10.0, 90.0));
         map2.put("Aug", randomNum(10.0, 90.0));
         map2.put("Sep", randomNum(10.0, 90.0));
-        map2.put("Oct", randomNum(-90.0, 90.0));
+        map2.put("Oct", randomNum(0.0, 90.0));
         map2.put("Nov", randomNum(10.0, 90.0));
         map2.put("Dec", randomNum(10.0, 90.0));
         
@@ -139,7 +139,7 @@ public class WelcomeController {
         map.put("Jul", randomNum(10.0, 90.0));
         map.put("Aug", randomNum(10.0, 90.0));
         map.put("Sep", randomNum(10.0, 90.0));
-        map.put("Oct", randomNum(-90.0, 90.0));
+        map.put("Oct", randomNum(0.0, 90.0));
         map.put("Nov", randomNum(10.0, 90.0));
         map.put("Dec", randomNum(10.0, 90.0));
 		return map;
@@ -153,7 +153,7 @@ public class WelcomeController {
         map.put("Jan", randomNum(10.0, 90.0));
         map.put("Feb", randomNum(10.0, 90.0));
         map.put("Mar", randomNum(10.0, 90.0));
-        map.put("Apr", randomNum(-90.0, 90.0));
+        map.put("Apr", randomNum(0.0, 90.0));
         map.put("May", randomNum(10.0, 90.0));
         map.put("Jun", randomNum(10.0, 90.0));
 
@@ -161,7 +161,7 @@ public class WelcomeController {
         map2.put("Jul", randomNum(10.0, 90.0));
         map2.put("Aug", randomNum(10.0, 90.0));
         map2.put("Sep", randomNum(10.0, 90.0));
-        map2.put("Oct", randomNum(-90.0, 90.0));
+        map2.put("Oct", randomNum(0.0, 90.0));
         map2.put("Nov", randomNum(10.0, 90.0));
         map2.put("Dec", randomNum(10.0, 90.0));
 
