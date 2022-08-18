@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
@@ -45,6 +44,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wheref.springrestapi.model.Coordinates;
 import com.wheref.springrestapi.model.Geometry;
+import com.wheref.springrestapi.utils.UtilFunction;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -90,12 +90,12 @@ public class WelcomeController {
             System.out.println(String.format("GET: Header '%s' = %s", key, value));
         });
         Map<String, Double> map = new LinkedHashMap<String, Double>();
-        map.put("Jan", randomNum(300.0, 900000.0));
-        map.put("Feb", randomNum(10.0, 90.0));
-        map.put("Mar", randomNum(10.0, 90.0));
-        map.put("Apr", randomNum(0.0, 90.0));
-        map.put("May", randomNum(10.0, 90.0));
-        map.put("Jun", randomNum(10.0, 90.0));
+        map.put("Jan", UtilFunction.randomNum(300.0, 900000.0));
+        map.put("Feb", UtilFunction.randomNum(10.0, 90.0));
+        map.put("Mar", UtilFunction.randomNum(10.0, 90.0));
+        map.put("Apr", UtilFunction.randomNum(0.0, 90.0));
+        map.put("May", UtilFunction.randomNum(10.0, 90.0));
+        map.put("Jun", UtilFunction.randomNum(10.0, 90.0));
 		return map;
 	}
 
@@ -105,23 +105,23 @@ public class WelcomeController {
         List<Map<String, Double>> list = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             Map<String, Double> map = new LinkedHashMap<String, Double>();
-            map.put("Jan", randomNum(10.0, 90.0));
-            map.put("Feb", randomNum(10.0, 90.0));
-            map.put("Mar", randomNum(10.0, 90.0));
-            map.put("Apr", randomNum(0.0, 90.0));
-            map.put("May", randomNum(10.0, 90.0));
-            map.put("Jun", randomNum(10.0, 90.0));
+            map.put("Jan", UtilFunction.randomNum(10.0, 90.0));
+            map.put("Feb", UtilFunction.randomNum(10.0, 90.0));
+            map.put("Mar", UtilFunction.randomNum(10.0, 90.0));
+            map.put("Apr", UtilFunction.randomNum(0.0, 90.0));
+            map.put("May", UtilFunction.randomNum(10.0, 90.0));
+            map.put("Jun", UtilFunction.randomNum(10.0, 90.0));
 
             list.add(map);
         }
 
         Map<String, Double> map2 = new LinkedHashMap<String, Double>();
-        map2.put("Jul", randomNum(10.0, 90.0));
-        map2.put("Aug", randomNum(10.0, 90.0));
-        map2.put("Sep", randomNum(10.0, 90.0));
-        map2.put("Oct", randomNum(0.0, 90.0));
-        map2.put("Nov", randomNum(10.0, 90.0));
-        map2.put("Dec", randomNum(10.0, 90.0));
+        map2.put("Jul", UtilFunction.randomNum(10.0, 90.0));
+        map2.put("Aug", UtilFunction.randomNum(10.0, 90.0));
+        map2.put("Sep", UtilFunction.randomNum(10.0, 90.0));
+        map2.put("Oct", UtilFunction.randomNum(0.0, 90.0));
+        map2.put("Nov", UtilFunction.randomNum(10.0, 90.0));
+        map2.put("Dec", UtilFunction.randomNum(10.0, 90.0));
         
         root.put("month", map2);
         root.put("list", list);
@@ -136,12 +136,12 @@ public class WelcomeController {
         });
 
         Map<String, Double> map = new LinkedHashMap<String, Double>();
-        map.put("Jul", randomNum(10.0, 90.0));
-        map.put("Aug", randomNum(10.0, 90.0));
-        map.put("Sep", randomNum(10.0, 90.0));
-        map.put("Oct", randomNum(0.0, 90.0));
-        map.put("Nov", randomNum(10.0, 90.0));
-        map.put("Dec", randomNum(10.0, 90.0));
+        map.put("Jul", UtilFunction.randomNum(10.0, 90.0));
+        map.put("Aug", UtilFunction.randomNum(10.0, 90.0));
+        map.put("Sep", UtilFunction.randomNum(10.0, 90.0));
+        map.put("Oct", UtilFunction.randomNum(0.0, 90.0));
+        map.put("Nov", UtilFunction.randomNum(10.0, 90.0));
+        map.put("Dec", UtilFunction.randomNum(10.0, 90.0));
 		return map;
 	}
 
@@ -150,20 +150,20 @@ public class WelcomeController {
         Map<String, Map<String, Double> > root = new LinkedHashMap<String, Map<String, Double> >();
         
         Map<String, Double> map = new LinkedHashMap<String, Double>();
-        map.put("Jan", randomNum(10.0, 90.0));
-        map.put("Feb", randomNum(10.0, 90.0));
-        map.put("Mar", randomNum(10.0, 90.0));
-        map.put("Apr", randomNum(0.0, 90.0));
-        map.put("May", randomNum(10.0, 90.0));
-        map.put("Jun", randomNum(10.0, 90.0));
+        map.put("Jan", UtilFunction.randomNum(10.0, 90.0));
+        map.put("Feb", UtilFunction.randomNum(10.0, 90.0));
+        map.put("Mar", UtilFunction.randomNum(10.0, 90.0));
+        map.put("Apr", UtilFunction.randomNum(0.0, 90.0));
+        map.put("May", UtilFunction.randomNum(10.0, 90.0));
+        map.put("Jun", UtilFunction.randomNum(10.0, 90.0));
 
         Map<String, Double> map2 = new LinkedHashMap<String, Double>();
-        map2.put("Jul", randomNum(10.0, 90.0));
-        map2.put("Aug", randomNum(10.0, 90.0));
-        map2.put("Sep", randomNum(10.0, 90.0));
-        map2.put("Oct", randomNum(0.0, 90.0));
-        map2.put("Nov", randomNum(10.0, 90.0));
-        map2.put("Dec", randomNum(10.0, 90.0));
+        map2.put("Jul", UtilFunction.randomNum(10.0, 90.0));
+        map2.put("Aug", UtilFunction.randomNum(10.0, 90.0));
+        map2.put("Sep", UtilFunction.randomNum(10.0, 90.0));
+        map2.put("Oct", UtilFunction.randomNum(0.0, 90.0));
+        map2.put("Nov", UtilFunction.randomNum(10.0, 90.0));
+        map2.put("Dec", UtilFunction.randomNum(10.0, 90.0));
 
         root.put("first", map);
         root.put("second", map2);
@@ -175,15 +175,15 @@ public class WelcomeController {
         Map<String, Object> root = new LinkedHashMap<String, Object>();
         
         Map<String, Double> map = new LinkedHashMap<String, Double>();
-        map.put("School", randomNum(10.0, 90.0));
-        map.put("Police", randomNum(10.0, 90.0));
+        map.put("Temperature", UtilFunction.randomNum(50.0, 70.0));
+        map.put("Speedometer", UtilFunction.randomNum(40.0, 60.0));
 
         Map<String, Object> map2 = new LinkedHashMap<String, Object>();
-        map2.put("Store", randomNum(10.0, 90.0));
-        map2.put("Stall", randomNum(10.0, 90.0));
+        map2.put("Water", UtilFunction.randomNum(50.0, 70.0));
+        map2.put("Gas", UtilFunction.randomNum(40.0, 60.0));
 
         Map<String, Object> map3 = new LinkedHashMap<String, Object>();
-        map3.put("Orange", randomNum(10.0, 90.0));
+        map3.put("Orange", UtilFunction.randomNum(10.0, 90.0));
         map3.put("Web Site", "https://wheref.com");
         map3.put("Microsoft Store", "https://apps.microsoft.com/store/detail/kpi-mboard/9NKW3Q13X88K");
         map3.put("AppStore", "https://apps.apple.com/us/app/mboard/id1632169331");
@@ -209,10 +209,10 @@ public class WelcomeController {
             Map<String, Object> map = new LinkedHashMap<String, Object>();
             map.put("symbol", "AAPL");
             map.put("exchange", "XNAS");
-            map.put("open", randomNum(10.0, 90.0));
-            map.put("high", randomNum(30.0, 90.0));
-            map.put("low", randomNum(10.0, 90.0));
-            map.put("close", randomNum(10.0, 90.0));
+            map.put("open", UtilFunction.randomNum(10.0, 90.0));
+            map.put("high", UtilFunction.randomNum(30.0, 90.0));
+            map.put("low", UtilFunction.randomNum(10.0, 90.0));
+            map.put("close", UtilFunction.randomNum(10.0, 90.0));
             map.put("date", dt);
 
             list.add(map);
@@ -226,7 +226,7 @@ public class WelcomeController {
         Map<String, Object> root = new LinkedHashMap<String, Object>();
         List<Object> list = new ArrayList<Object>();
         for (int i = 0; i < 7; i++) {
-            list.add(randomNum(10.0, 90.0));
+            list.add(UtilFunction.randomNum(10.0, 90.0));
         }
 
         root.put("data", list);
@@ -343,12 +343,5 @@ public class WelcomeController {
         System.out.println("coordinates: "+ coordinates.getLat()+", "+ coordinates.getLng());
         this.co = coordinates;
         return coordinates;
-    }
-
-    private double randomNum(double rangeMin, double rangeMax){
-        Random r = new Random();
-        double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
-        double roundDbl = Math.round(randomValue*100.0)/100.0;
-        return roundDbl;
     }
 }

@@ -34,6 +34,11 @@ http://localhost:8080/api/command/top
 http://localhost:8080/api/panorama/house
 http://localhost:8080/api/panorama/car
 
+# Event Controller
+http://localhost:8080/api/event/trigger
+http://localhost:8080/websocket
+/topic/greetings
+
 # Result
 * Random Double value
 * {"Jan":48.1,"Feb":25.15,"Mar":34.31,"Apr":48.89,"May":56.27,"Jun":67.84}
