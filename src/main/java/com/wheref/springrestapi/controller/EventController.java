@@ -2,6 +2,7 @@ package com.wheref.springrestapi.controller;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -29,17 +30,14 @@ public class EventController {
         map.put("Jan", UtilFunction.randomNum(10.0, 90.0));
         map.put("Feb", UtilFunction.randomNum(10.0, 90.0));
         map.put("Mar", UtilFunction.randomNum(10.0, 90.0));
-        map.put("Apr", UtilFunction.randomNum(0.0, 90.0));
-        map.put("May", UtilFunction.randomNum(10.0, 90.0));
-        map.put("Jun", UtilFunction.randomNum(10.0, 90.0));
 
-        String topic = "/topic/greetings";
+        String topic = "/topic/trigger";
         messagingTemplate.convertAndSend(topic, map);
 
         return true;
     }
 
-    @Scheduled(fixedRate = 2000)
+    @Scheduled(fixedRate = 5, timeUnit = TimeUnit.SECONDS)
 	public void reportPeriodic() {
 		System.out.println("-- reportPeriodic --"); 
         
@@ -55,12 +53,13 @@ public class EventController {
         messagingTemplate.convertAndSend(topic, map);
 	}
 
-    @Scheduled(fixedRate = 3000)
+    @Scheduled(fixedRate = 2, timeUnit = TimeUnit.SECONDS)
 	public void reportSingleData() {
-		System.out.println("-- reportSingleData --"); 
         
+        double dValue = UtilFunction.randomNum(10.0, 90.0);
         Map<String, Double> map = new LinkedHashMap<String, Double>();
-        map.put("single", UtilFunction.randomNum(10.0, 90.0));
+        map.put("single", dValue);
+		System.out.println("-- reportSingleData --, dValue: "+ dValue); 
 
         String topic = "/topic/single";
         messagingTemplate.convertAndSend(topic, map);

@@ -37,7 +37,9 @@ http://localhost:8080/api/panorama/car
 # Event Controller
 http://localhost:8080/api/event/trigger
 http://localhost:8080/websocket
+/topic/trigger
 /topic/greetings
+/topic/single
 
 # Result
 * Random Double value
