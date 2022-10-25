@@ -49,3 +49,6 @@ http://localhost:8080/websocket
 
 * http://localhost:8080/api/welcome/coordinate
 * {"type":"Point","coordinates":[4.5841,101.0829]}
+
+
+./mvnw spring-boot:run
