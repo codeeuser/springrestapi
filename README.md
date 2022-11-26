@@ -22,6 +22,8 @@ http://localhost:8080/api/welcome/list
 
 http://localhost:8080/api/welcome/photo
 
+http://localhost:8080/api/welcome/floorPlan
+
 http://localhost:8080/api/welcome/nasdaq
 
 http://localhost:8080/api/welcome/coordinate
