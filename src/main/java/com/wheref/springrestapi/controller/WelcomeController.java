@@ -60,9 +60,6 @@ public class WelcomeController {
     @Value("classpath:images/avatar-movie.jpeg")
     Resource avatarMovie;
 
-    @Value("classpath:images/floor-plan.png")
-    Resource floorPlan;
-
     @Value("classpath:files/nasdaq.csv")
     Resource nasdaq;
 
@@ -85,12 +82,6 @@ public class WelcomeController {
         };
         int randomNum = ThreadLocalRandom.current().nextInt(0, 2);
         return IOUtils.toByteArray(list[randomNum]);
-    } 
-
-    @GetMapping(value = "/floorPlan", produces = MediaType.IMAGE_PNG_VALUE)
-    public @ResponseBody byte[] floorPlan() throws IOException {
-        System.out.println("--- LOADING FLOOR PLAN ---");
-        return IOUtils.toByteArray(floorPlan.getInputStream());
     } 
 
     @GetMapping("/chartData")
