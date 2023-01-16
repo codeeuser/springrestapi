@@ -14,8 +14,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
@@ -73,6 +76,195 @@ public class WelcomeController {
         return "home";
     }
 
+    @GetMapping(value = "/anatomy-body")
+    public Map<String, Object> anatomyBody(@RequestHeader Map<String, String> headers) {
+        headers.forEach((key, value) -> {
+            System.out.println(String.format("GET: Header '%s' = %s", key, value));
+        });
+        Map<String, Object> root = new LinkedHashMap<String, Object>();
+
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        map.put("Weight", 85); // kg
+        map.put("Body Fat Percentage", 23);// Percentage
+        map.put("BMI", 22.1);
+        map.put("Basal Metabolic Rate", 1850.2);// kcal/d
+        map.put("Visceral Fat Level", 14.3);
+        map.put("Muscle Mass", 70.8); // kg
+        map.put("Bone Mineral Content", 3.8);// kg
+        map.put("Protein", 23.5); // Percentage
+        map.put("Body Water Percentage", 51.7); // percentage
+
+        // 24 hours Stat
+        root.put("Step per Minute", UtilFunction.statBasedTime(0));
+        root.put("Heart Rate", UtilFunction.statRandomTime(70, 80)); // BPM
+        root.put("Active KCal", UtilFunction.statRandomTime(170, 200));
+        root.put("Distance", UtilFunction.statRandomTime(10, 100));
+        root.put("Blood Oxygen", UtilFunction.statRandomTime(95, 100)); // peercentage
+
+        root.put("Today Metrics", map);
+
+        return root;
+    }
+
+    @GetMapping(value = "/wind-energy")
+    public Map<String, Object> windEnergy(@RequestHeader Map<String, String> headers) {
+        headers.forEach((key, value) -> {
+            System.out.println(String.format("GET: Header '%s' = %s", key, value));
+        });
+        Map<String, Object> root = new LinkedHashMap<String, Object>();
+
+        List<Object> items = new LinkedList<Object>();       
+        Map<String, Object> map1 = createEnergyMetrics("OMNJI-121");
+        Map<String, Object> map2 = createEnergyMetrics("OMNJI-122");
+        Map<String, Object> map3 = createEnergyMetrics("OMNJI-123");
+        
+        List<Map<String, Object>> powers = new LinkedList<Map<String, Object>>();
+        powers.add(map1);
+        powers.add(map2);
+        powers.add(map3);
+
+        items.add(map1);
+        items.add(map2);
+        items.add(map3);
+
+        root.put("Turbines", items);
+        root.put("Powers", createPowerMetrics(powers));
+        root.put("Temperature", UtilFunction.randomNum(45.0, 50.0));
+		return root;
+    }
+
+    Map<String, Object> createPowerMetrics(List<Map<String, Object>> list){
+        Map<String, Object> result = new LinkedHashMap<String, Object>();
+        if (list != null && !list.isEmpty()) {
+            for (int i = 0; i < list.size(); i++) {
+              Map<String, Object> map = list.get(i);
+              Object key = map.get("Model");
+              Object value = map.get("Turbine Power");
+              
+              result.put(key.toString(), value);
+            }
+        }
+        return result;
+    }
+
+    Map<String, Object> createEnergyMetrics(String model){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        map.put("Turbine Speed", UtilFunction.randomNum(100.0, 200.0));
+        map.put("Turbine Torque", UtilFunction.randomNum(100.0, 200.0));
+        map.put("Wind Speed", UtilFunction.randomNum(100.0, 200.0));
+        map.put("Wind Direction", UtilFunction.randomNum(45.0, 90.0));
+        map.put("Turbine Power", UtilFunction.randomNum(100.0, 200.0));
+        map.put("lat", 6.11);
+        map.put("lng", 100.37);
+        map.put("Firmware Version", "1.0.22223");
+        map.put("Model", model);
+        return map;
+    }
+
+    @GetMapping(value = "/retail-shop")
+    public Map<String, Object> retailShop(@RequestHeader Map<String, String> headers) {
+        headers.forEach((key, value) -> {
+            System.out.println(String.format("GET: Header '%s' = %s", key, value));
+        });
+        Map<String, Object> root = new LinkedHashMap<String, Object>();
+
+        Map<String, Double> reportMap = new LinkedHashMap<String, Double>();
+        reportMap.put("Sales Revenue", UtilFunction.randomNum(1000000.0, 9000.0));
+        reportMap.put("Customer", UtilFunction.randomNum(1000000.0, 9000.0));
+        reportMap.put("Avg Transaction Price", UtilFunction.randomNum(1000000.0, 9000.0));
+        reportMap.put("Avg Unit per Customer", UtilFunction.randomNum(1.0, 3.0));
+
+        Map<String, Double> map = new LinkedHashMap<String, Double>();
+        map.put("Jan", UtilFunction.randomNum(1000.0, 9000.0));
+        map.put("Feb", UtilFunction.randomNum(1000.0, 9000.0));
+        map.put("Mar", UtilFunction.randomNum(1000.0, 9000.0));
+        map.put("Apr", UtilFunction.randomNum(1000.0, 9000.0));
+        map.put("May", UtilFunction.randomNum(1000.0, 9000.0));
+        map.put("Jun", UtilFunction.randomNum(1000.0, 9000.0));
+        map.put("Jul", UtilFunction.randomNum(1000.0, 9000.0));
+        map.put("Aug", UtilFunction.randomNum(1000.0, 9000.0));
+        map.put("Sep", UtilFunction.randomNum(1000.0, 9000.0));
+        map.put("Oct", UtilFunction.randomNum(1000.0, 9000.0));
+        map.put("Nov", UtilFunction.randomNum(1000.0, 9000.0));
+        map.put("Dec", UtilFunction.randomNum(1000.0, 9000.0));
+
+        Map<String, Double> map2 = new LinkedHashMap<String, Double>();
+        map2.put("Silk", UtilFunction.randomNum(1000.0, 9000.0));
+        map2.put("Linen", UtilFunction.randomNum(1000.0, 9000.0));
+        map2.put("Wool", UtilFunction.randomNum(1000.0, 9000.0));
+        map2.put("Cotton", UtilFunction.randomNum(1000.0, 9000.0));
+        map2.put("Cashmere", UtilFunction.randomNum(1000.0, 9000.0));
+        map2.put("Velvet", UtilFunction.randomNum(1000.0, 9000.0));
+        map2.put("Satin", UtilFunction.randomNum(1000.0, 9000.0));
+        map2.put("Chiffon", UtilFunction.randomNum(1000.0, 9000.0));
+        map2.put("Lace", UtilFunction.randomNum(1000.0, 9000.0));
+        map2.put("Leather", UtilFunction.randomNum(1000.0, 9000.0));
+
+        Map<String, Double> map3 = new LinkedHashMap<String, Double>();
+        map3.put("Hand-dyed silk scarf", UtilFunction.randomNum(1000.0, 9000.0));
+        map3.put("Handwoven cotton shawl", UtilFunction.randomNum(1000.0, 9000.0));
+        map3.put("Recycled denim jacket with patches", UtilFunction.randomNum(1000.0, 9000.0));
+        map3.put("Vintage sequin blouse", UtilFunction.randomNum(1000.0, 9000.0));
+        map3.put("Upcycled leather boots", UtilFunction.randomNum(1000.0, 9000.0));
+        map3.put("Bamboo fiber t-shirt", UtilFunction.randomNum(1000.0, 9000.0));
+        map3.put("Embroidered linen tunic", UtilFunction.randomNum(1000.0, 9000.0));
+        map3.put("Alpaca wool sweater", UtilFunction.randomNum(1000.0, 9000.0));
+        map3.put("Organic cotton sundress", UtilFunction.randomNum(1000.0, 9000.0));
+        map3.put("Handmade crochet swimsuit cover-up", UtilFunction.randomNum(1000.0, 9000.0));
+
+        Map<String, Double> map4 = new LinkedHashMap<String, Double>();
+        map4.put("Men", UtilFunction.randomNum(1000.0, 9000.0));
+        map4.put("Women", UtilFunction.randomNum(1000.0, 9000.0));
+        map4.put("Kids", UtilFunction.randomNum(1000.0, 9000.0));
+
+        Map<String, Double> map5 = new LinkedHashMap<String, Double>();
+        map5.put("KL", UtilFunction.randomNum(1000.0, 9000.0));
+        map5.put("Penang", UtilFunction.randomNum(1000.0, 9000.0));
+        map5.put("JB", UtilFunction.randomNum(1000.0, 9000.0));
+
+        Map<String, Double> map6 = new LinkedHashMap<String, Double>();
+        map6.put("Jan", UtilFunction.randomNum(0.0, 10.0));
+        map6.put("Feb", UtilFunction.randomNum(0.0, 10.0));
+        map6.put("Mar", UtilFunction.randomNum(0.0, 10.0));
+        map6.put("Apr", UtilFunction.randomNum(0.0, 10.0));
+        map6.put("May", UtilFunction.randomNum(0.0, 10.0));
+        map6.put("Jun", UtilFunction.randomNum(0.0, 10.0));
+        map6.put("Jul", UtilFunction.randomNum(0.0, 10.0));
+        map6.put("Aug", UtilFunction.randomNum(0.0, 10.0));
+        map6.put("Sep", UtilFunction.randomNum(0.0, 10.0));
+        map6.put("Oct", UtilFunction.randomNum(0.0, 10.0));
+        map6.put("Nov", UtilFunction.randomNum(0.0, 10.0));
+        map6.put("Dec", UtilFunction.randomNum(0.0, 10.0));
+
+        Map<String, Double> map7 = new LinkedHashMap<String, Double>();
+        map7.put("Jan", UtilFunction.randomNum(0.0, 3.0));
+        map7.put("Feb", UtilFunction.randomNum(0.0, 3.0));
+        map7.put("Mar", UtilFunction.randomNum(0.0, 3.0));
+        map7.put("Apr", UtilFunction.randomNum(0.0, 3.0));
+        map7.put("May", UtilFunction.randomNum(0.0, 3.0));
+        map7.put("Jun", UtilFunction.randomNum(0.0, 3.0));
+        map7.put("Jul", UtilFunction.randomNum(0.0, 3.0));
+        map7.put("Aug", UtilFunction.randomNum(0.0, 3.0));
+        map7.put("Sep", UtilFunction.randomNum(0.0, 3.0));
+        map7.put("Oct", UtilFunction.randomNum(0.0, 3.0));
+        map7.put("Nov", UtilFunction.randomNum(0.0, 3.0));
+        map7.put("Dec", UtilFunction.randomNum(0.0, 3.0));
+
+        
+
+        root.put("Report", reportMap);
+        root.put("Visitors", map);
+        root.put("Sold Item", map2);
+        root.put("Collections Revenue", map3);
+        root.put("Sales by Divison", map4);
+        root.put("Sales by City", map5);
+        root.put("Out of Stock percentage", map6);
+        root.put("Unit per Trasaction", map7);
+        root.put("Today Popular Times", UtilFunction.statBasedTime(UtilFunction.randomInt(0, 100)));
+        root.put("Cashier Income", UtilFunction.statBasedTime(UtilFunction.randomInt(100, 500)));
+		return root;
+	}
+
     @GetMapping(value = "/photo", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] photo() throws IOException {
         System.out.println("--- LOADING PHOTO ---");
@@ -111,7 +303,6 @@ public class WelcomeController {
             map.put("Apr", UtilFunction.randomNum(0.0, 90.0));
             map.put("May", UtilFunction.randomNum(10.0, 90.0));
             map.put("Jun", UtilFunction.randomNum(10.0, 90.0));
-
             list.add(map);
         }
 
@@ -228,6 +419,10 @@ public class WelcomeController {
         for (int i = 0; i < 7; i++) {
             list.add(UtilFunction.randomNum(10.0, 90.0));
         }
+        List<Object> list2 = new ArrayList<Object>();
+        list2.add(UtilFunction.randomNum(10.0, 90.0));
+        list2.add(UtilFunction.randomNum(10.0, 90.0));
+        list.add(list2);
 
         root.put("data", list);
         return root;

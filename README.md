@@ -26,6 +26,12 @@ http://localhost:8080/api/welcome/nasdaq
 
 http://localhost:8080/api/welcome/coordinate
 
+http://localhost:8080/api/welcome/retail-shop
+
+http://localhost:8080/api/welcome/wind-energy
+
+http://localhost:8080/api/welcome/anatomy-body
+
 
 # Command Controller - TOP CLI
 http://localhost:8080/api/command/top
@@ -46,8 +52,10 @@ http://mboard.xyz/sample/images/car.jpeg
 
 # Photo
 http://localhost:8080/images/floor-plan.png
-
+http://localhost:8080/images/turbine.png
+http://localhost:8080/images/wind-energy.gif
 http://mboard.xyz/sample/images/floor-plan.png
+
 
 # Object3D Controller
 http://localhost:8080/objects/bunny.obj
@@ -59,6 +67,7 @@ http://localhost:8080/objects/house.obj
 http://localhost:8080/objects/sg.obj
 http://localhost:8080/objects/scene.gltf
 http://localhost:8080/objects/minicooper.obj
+http://localhost:8080/objects/Fovea_3dscan_moto.obj
 
 http://mboard.xyz/sample/objects/bunny.obj
 http://mboard.xyz/sample/objects/teapot.obj
@@ -67,6 +76,7 @@ http://mboard.xyz/sample/objects/engine.obj
 http://mboard.xyz/sample/objects/cup.obj
 http://mboard.xyz/sample/objects/house.obj
 http://mboard.xyz/sample/objects/sg.obj
+
 
 
 # Result
