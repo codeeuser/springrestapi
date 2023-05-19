@@ -17,8 +17,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
@@ -32,9 +30,11 @@ import javax.management.ReflectionException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,9 +66,14 @@ public class WelcomeController {
     @Value("classpath:files/nasdaq.csv")
     Resource nasdaq;
 
+    @Value("classpath:files/trajectory.csv")
+    Resource trajectory;
+
     private Long gbUnit = 1073741824L;
 
     private Coordinates co;
+
+    int fileLineNumber = 0;
     
     @GetMapping("/home")
     @ResponseBody
@@ -129,7 +134,7 @@ public class WelcomeController {
 
         root.put("Turbines", items);
         root.put("Powers", createPowerMetrics(powers));
-        root.put("Temperature", UtilFunction.randomNum(45.0, 50.0));
+        root.put("Temperature", UtilFunction.randomNum(15.0, 50.0));
 		return root;
     }
 
@@ -292,12 +297,11 @@ public class WelcomeController {
 	}
 
     @GetMapping("/chartDataList")
-	public Map<String, Object> chartData() {
-        Map<String, Object> root = new LinkedHashMap<String, Object>();
-        List<Map<String, Double>> list = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            Map<String, Double> map = new LinkedHashMap<String, Double>();
-            map.put("Jan", UtilFunction.randomNum(10.0, 90.0));
+	public List<Map<String, Object>> chartData() {
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            Map<String, Object> map = new LinkedHashMap<String, Object>();
+            map.put("Jan", "http://localhost:8080/images/meditation.png");
             map.put("Feb", UtilFunction.randomNum(10.0, 90.0));
             map.put("Mar", UtilFunction.randomNum(10.0, 90.0));
             map.put("Apr", UtilFunction.randomNum(0.0, 90.0));
@@ -305,18 +309,7 @@ public class WelcomeController {
             map.put("Jun", UtilFunction.randomNum(10.0, 90.0));
             list.add(map);
         }
-
-        Map<String, Double> map2 = new LinkedHashMap<String, Double>();
-        map2.put("Jul", UtilFunction.randomNum(10.0, 90.0));
-        map2.put("Aug", UtilFunction.randomNum(10.0, 90.0));
-        map2.put("Sep", UtilFunction.randomNum(10.0, 90.0));
-        map2.put("Oct", UtilFunction.randomNum(0.0, 90.0));
-        map2.put("Nov", UtilFunction.randomNum(10.0, 90.0));
-        map2.put("Dec", UtilFunction.randomNum(10.0, 90.0));
-        
-        root.put("month", map2);
-        root.put("list", list);
-		return root;
+		return list;
 	}
 
     @PostMapping("/postChartData")
@@ -516,6 +509,23 @@ public class WelcomeController {
         File file = nasdaq.getFile();
         String str = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
         return str;
+    }
+
+    @Scheduled(fixedRate = 1000) // Milliseconds
+    public void readLinesPeriodically() throws IOException {
+        System.out.println("fileLineNumber: "+ fileLineNumber);
+        File file  = trajectory.getFile();
+        List<String> lines = FileUtils.readLines(file, "UTF-8");
+        String line = lines.get(fileLineNumber);
+        String[] arr = StringUtils.split(line, ","); 
+
+        Coordinates coordinates = new Coordinates();
+        coordinates.setLat(Float.parseFloat(arr[0]));
+        coordinates.setLng(Float.parseFloat(arr[1]));
+        this.co = coordinates;
+
+        fileLineNumber++;
+        fileLineNumber = fileLineNumber % lines.size();
     }
 
     @GetMapping("/coordinate")
