@@ -83,9 +83,12 @@ http://mboard.xyz/sample/objects/cup.obj
 http://mboard.xyz/sample/objects/house.obj
 http://mboard.xyz/sample/objects/sg.obj
 
-http://localhost:8089/json/world_map.json
+ 
 http://localhost:8089/json/africa.json
 http://localhost:8089/json/usa.json
+http://localhost:8089/json/world_map.json
+https://raw.githubusercontent.com/codeeuser/springrestapi/master/src/main/resources/static/json/world_map.json
+
 http://localhost:8089/api/welcome/worldPopulationDensity
 http://localhost:8089/api/welcome/africa
 
