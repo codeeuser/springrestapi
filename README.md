@@ -101,6 +101,7 @@ http://localhost:8089/api/welcome/africa
 * http://localhost:8089/api/welcome/coordinate
 {"type":"Point","coordinates":{"lng":101.6869,"lat":3.139}}
 
+windows shell: pip install glances windows-curses Bottle
 glances -w
 
 http://localhost:61208/api/3/all

@@ -6,6 +6,8 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
+import com.wheref.springrestapi.utils.CustomHandshakeInterceptor;
+
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer {
@@ -18,7 +20,7 @@ public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer 
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/websocket");
-        registry.addEndpoint("/websocket").withSockJS();    
+        registry.addEndpoint("/websocket").addInterceptors(new CustomHandshakeInterceptor());
+        registry.addEndpoint("/websocket").addInterceptors(new CustomHandshakeInterceptor()).withSockJS(); 
     }
 }
