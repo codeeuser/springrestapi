@@ -57,8 +57,9 @@ http://mboard.xyz/sample/images/car.jpeg
 http://localhost:8089/images/floor-plan.png
 http://localhost:8089/images/turbine.png
 http://localhost:8089/images/wind-energy.gif
-http://mboard.xyz/sample/images/floor-plan.png
 http://localhost:8089/images/meditation.png
+
+https://mboard.app/sample/images/meditation.png
 
 
 # Object3D Controller
@@ -74,6 +75,10 @@ http://localhost:8089/objects/sg.obj
 http://localhost:8089/objects/scene.gltf
 http://localhost:8089/objects/minicooper.obj
 http://localhost:8089/objects/Fovea_3dscan_moto.obj
+
+https://modelviewer.dev/shared-assets/models/Astronaut.glb
+https://modelviewer.dev/shared-assets/models/RobotExpressive.glb
+https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/DamagedHelmet/glTF-Binary/DamagedHelmet.glb
 
 http://mboard.xyz/sample/objects/bunny.obj
 http://mboard.xyz/sample/objects/teapot.obj
@@ -91,6 +96,8 @@ https://raw.githubusercontent.com/codeeuser/springrestapi/master/src/main/resour
 
 http://localhost:8089/api/welcome/worldPopulationDensity
 http://localhost:8089/api/welcome/africa
+
+https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
 
 # Result
 * Random Double value
