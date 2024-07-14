@@ -686,7 +686,8 @@ public class WelcomeController {
         map3.put("Web Site", "https://wheref.com");
         map3.put("Microsoft Store", "https://apps.microsoft.com/store/detail/kpi-mboard/9NKW3Q13X88K");
         map3.put("AppStore", "https://apps.apple.com/us/app/mboard/id1632169331");
-
+        map3.put("image", "https://mboard.app/sample/images/meditation.png");
+        
         map2.put("fruit", map3);
         root.put("one", map);
         root.put("two", map2);

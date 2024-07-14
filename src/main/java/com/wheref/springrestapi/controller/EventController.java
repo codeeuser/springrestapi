@@ -55,13 +55,13 @@ public class EventController {
         messagingTemplate.convertAndSend(topic, map);
 	}
 
-    @Scheduled(fixedRate = 2, timeUnit = TimeUnit.SECONDS)
+    @Scheduled(fixedRate = 300, timeUnit = TimeUnit.MILLISECONDS)
 	public void reportSingleData() {
         
         double dValue = UtilFunction.randomNum(10.0, 90.0);
         Map<String, Double> map = new LinkedHashMap<String, Double>();
         map.put("single", dValue);
-		System.out.println("-- reportSingleData --, dValue: "+ dValue); 
+		// System.out.println("-- reportSingleData --, dValue: "+ dValue); 
 
         String topic = "/topic/single";
         messagingTemplate.convertAndSend(topic, map);
