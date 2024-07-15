@@ -780,8 +780,8 @@ public class WelcomeController {
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
         Object attribute = mBeanServer.getAttribute(new ObjectName("java.lang","type","OperatingSystem"), "TotalPhysicalMemorySize");
         Object attribute2 = mBeanServer.getAttribute(new ObjectName("java.lang","type","OperatingSystem"), "FreePhysicalMemorySize");
-        Long totalPhysicalMemorySize = Long.parseLong(attribute.toString()) / gbUnit;
-        Long freePhysicalMemorySize = Long.parseLong(attribute2.toString()) / gbUnit; 
+        Long totalPhysicalMemorySize = Long.parseLong(attribute.toString());
+        Long freePhysicalMemorySize = Long.parseLong(attribute2.toString()); 
         mapPhysicalMemory.put("total", totalPhysicalMemorySize);
         mapPhysicalMemory.put("free", freePhysicalMemorySize);
         root.put("Physical Memory", mapPhysicalMemory);
