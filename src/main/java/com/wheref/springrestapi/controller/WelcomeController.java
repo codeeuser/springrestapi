@@ -787,17 +787,17 @@ public class WelcomeController {
         root.put("Physical Memory", mapPhysicalMemory);
 
         File fileRoot = new File("/");
-        Long totalSpac = fileRoot.getTotalSpace();
+        Long totalSpace = fileRoot.getTotalSpace();
         Long freeSpace = fileRoot.getFreeSpace();
         Long usableSpace = fileRoot.getUsableSpace();
         Map<String, Long> mapSpace = new LinkedHashMap<String, Long>();
-        mapSpace.put("TotalSpac", totalSpac);
+        mapSpace.put("TotalSpace", totalSpace);
         mapSpace.put("FreeSpace", freeSpace);
         mapSpace.put("UsableSpace", usableSpace);
         root.put("SpaceRaw", mapSpace);
 
         Map<String, Double> mapSpaceG = new LinkedHashMap<String, Double>();
-        mapSpaceG.put("TotalSpace", Math.ceil((double) (totalSpac/gbUnit)));
+        mapSpaceG.put("TotalSpace", Math.ceil((double) (totalSpace/gbUnit)));
         mapSpaceG.put("FreeSpace", Math.ceil((double) freeSpace/gbUnit));
         mapSpaceG.put("UsableSpace", Math.ceil((double) usableSpace/gbUnit));
         root.put("SpaceG", mapSpaceG);
