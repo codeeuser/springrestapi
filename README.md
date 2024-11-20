@@ -4,6 +4,8 @@ http://localhost:8089/api/welcome/home
 
 http://localhost:8089/api/welcome/chartData
 
+http://localhost:8089/api/welcome/error500
+
 http://localhost:8089/api/welcome/chartDataLevel2
 
 http://localhost:8089/api/welcome/chartDataLevel3
@@ -114,5 +116,15 @@ glances -w
 http://localhost:61208/api/3/all
 
 https://www.tindakmalaysia.org/
+
+# Convert SVG to GeoJson
+- npm install svg2geojson -g
+- svg2geojson asia.svg
+- https://geojson.io/
+- http://localhost:8089/json/asia.json
+- features[*].properties.[@.name, @.gdp_md_est]
+- Asia.features[].{name: @.properties.brk_a3, gdp: @.properties.gdp_md_est}
+
+http://localhost:8089/json/county-usa.json
 
 ./mvnw spring-boot:run

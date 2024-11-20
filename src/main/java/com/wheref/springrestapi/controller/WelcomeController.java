@@ -34,9 +34,13 @@ import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,15 +49,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.wheref.springrestapi.model.Coordinates;
 import com.wheref.springrestapi.model.Geometry;
+import com.wheref.springrestapi.utils.ErrorInfo;
 import com.wheref.springrestapi.utils.UtilFunction;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/welcome")
-public class WelcomeController {
+public class WelcomeController extends ResponseEntityExceptionHandler{
 
     @Value("classpath:files/googleapiscom-analyticsreporting.json")
     Resource sampleJson;
@@ -643,10 +650,10 @@ public class WelcomeController {
 	}
 
     @GetMapping("/chartDataLevel2")
-	public Map<String, Map<String, Double> > chartDataLevel2() {
-        Map<String, Map<String, Double> > root = new LinkedHashMap<String, Map<String, Double> >();
+	public Map<String, Map<String, Number> > chartDataLevel2() {
+        Map<String, Map<String, Number> > root = new LinkedHashMap<String, Map<String, Number> >();
         
-        Map<String, Double> map = new LinkedHashMap<String, Double>();
+        Map<String, Number> map = new LinkedHashMap<String, Number>();
         map.put("Jan", UtilFunction.randomNum(10.0, 90.0));
         map.put("Feb", UtilFunction.randomNum(10.0, 90.0));
         map.put("Mar", UtilFunction.randomNum(10.0, 90.0));
@@ -654,7 +661,7 @@ public class WelcomeController {
         map.put("May", UtilFunction.randomNum(10.0, 90.0));
         map.put("Jun", UtilFunction.randomNum(10.0, 90.0));
 
-        Map<String, Double> map2 = new LinkedHashMap<String, Double>();
+        Map<String, Number> map2 = new LinkedHashMap<String, Number>();
         map2.put("Jul", UtilFunction.randomNum(10.0, 90.0));
         map2.put("Aug", UtilFunction.randomNum(10.0, 90.0));
         map2.put("Sep", UtilFunction.randomNum(10.0, 90.0));
@@ -662,8 +669,18 @@ public class WelcomeController {
         map2.put("Nov", UtilFunction.randomNum(10.0, 90.0));
         map2.put("Dec", UtilFunction.randomNum(10.0, 90.0));
 
+        Map<String, Number> map3 = new LinkedHashMap<String, Number>();
+        map3.put("Jul", UtilFunction.randomInt(30, 60));
+        map3.put("Aug", UtilFunction.randomInt(30, 60));
+        map3.put("Sep", UtilFunction.randomInt(30, 60));
+        map3.put("Oct", UtilFunction.randomInt(30, 60));
+        map3.put("Nov", UtilFunction.randomInt(30, 60));
+        map3.put("Dec", UtilFunction.randomInt(30, 60));
+
         root.put("first", map);
         root.put("second", map2);
+        root.put("third", map3);
+        
 		return root;
 	}
 
@@ -865,5 +882,13 @@ public class WelcomeController {
         System.out.println("coordinates: "+ coordinates.getLat()+", "+ coordinates.getLng());
         this.co = coordinates;
         return coordinates;
+    }
+
+    @ExceptionHandler(value = {IllegalArgumentException.class})
+    @GetMapping("/error500")
+    public ResponseEntity<Object> handleIllegalArgumentExceptions(Exception exception, WebRequest webRequest) {
+        HttpStatus errorCode = HttpStatus.INTERNAL_SERVER_ERROR;
+
+        return this.handleExceptionInternal(exception, new ErrorInfo(errorCode.value(), "Id already exist, Cannot create record"), new HttpHeaders(), errorCode, webRequest);
     }
 }
