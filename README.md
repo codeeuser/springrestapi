@@ -60,6 +60,7 @@ http://localhost:8089/images/floor-plan.png
 http://localhost:8089/images/turbine.png
 http://localhost:8089/images/wind-energy.gif
 http://localhost:8089/images/meditation.png
+http://localhost:8089/images/futuristic-motorcycle.png
 
 https://mboard.app/sample/images/meditation.png
 

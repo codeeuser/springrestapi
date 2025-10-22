@@ -82,6 +82,7 @@ public class WelcomeController extends ResponseEntityExceptionHandler{
     private Coordinates co;
 
     int fileLineNumber = 0;
+    int startCount = 10;
     
     @GetMapping("/home")
     @ResponseBody
@@ -280,12 +281,12 @@ public class WelcomeController extends ResponseEntityExceptionHandler{
 
     @GetMapping(value = "/photo", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] photo() throws IOException {
-        System.out.println("--- LOADING PHOTO ---");
         InputStream[] list = {
             avatar.getInputStream(),
             avatarMovie.getInputStream()
         };
         int randomNum = ThreadLocalRandom.current().nextInt(0, 2);
+        System.out.println("--- LOADING PHOTO ---"+randomNum);
         return IOUtils.toByteArray(list[randomNum]);
     } 
 
@@ -652,14 +653,14 @@ public class WelcomeController extends ResponseEntityExceptionHandler{
     @GetMapping("/chartDataLevel2")
 	public Map<String, Map<String, Number> > chartDataLevel2() {
         Map<String, Map<String, Number> > root = new LinkedHashMap<String, Map<String, Number> >();
-        
+        startCount += 1;
         Map<String, Number> map = new LinkedHashMap<String, Number>();
-        map.put("Jan", UtilFunction.randomNum(10.0, 90.0));
+        map.put("Jan", UtilFunction.randomNum(10.0, 200.0));
         map.put("Feb", UtilFunction.randomNum(10.0, 90.0));
         map.put("Mar", UtilFunction.randomNum(10.0, 90.0));
         map.put("Apr", UtilFunction.randomNum(0.0, 90.0));
         map.put("May", UtilFunction.randomNum(10.0, 90.0));
-        map.put("Jun", UtilFunction.randomNum(10.0, 90.0));
+        map.put("Jun++", startCount %100);
 
         Map<String, Number> map2 = new LinkedHashMap<String, Number>();
         map2.put("Jul", UtilFunction.randomNum(10.0, 90.0));
@@ -680,12 +681,13 @@ public class WelcomeController extends ResponseEntityExceptionHandler{
         root.put("first", map);
         root.put("second", map2);
         root.put("third", map3);
-        
+        System.out.println("chartDataLevel2---");
 		return root;
 	}
 
     @GetMapping("/chartDataLevel3")
 	public Map<String, Object> chartDataLevel3() {
+        long currentTimeMillis = System.currentTimeMillis();
         String[] statusList = {"healthy", "poor", "rich"};
         String status = statusList[RandomUtils.nextInt(0, 3)];
         Map<String, Object> root = new LinkedHashMap<String, Object>();
@@ -708,6 +710,7 @@ public class WelcomeController extends ResponseEntityExceptionHandler{
         map2.put("fruit", map3);
         root.put("one", map);
         root.put("two", map2);
+        root.put("timestamp", currentTimeMillis);
         root.put("three", status);
 		return root;
 	}
